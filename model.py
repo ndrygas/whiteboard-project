@@ -10,7 +10,7 @@ class User(db.Model):
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
 
     users = db.relationship("User", back_populates="notes")

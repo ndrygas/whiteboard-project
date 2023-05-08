@@ -16,6 +16,9 @@ def create_user(username, password):
 
     return user
 
+def check_login(username, password):
+    """Verify username and password matches """
+
 if __name__ == "__main__":
     from server import app
     connect_to_db(app)

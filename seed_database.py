@@ -12,6 +12,8 @@ import server
 os.system("pg_dump whiteboard > whiteboard.sql")
 os.system("dropdb whiteboard")
 os.system("createdb whiteboard")
+os.system("psql whiteboard < whiteboard.sql")
+
 
 model.connect_to_db(server.app)
-model.db.create_all()
+# model.db.create_all()
