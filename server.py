@@ -18,9 +18,21 @@ def homepage():
 
     return render_template('homepage.html')
 
-# @app.route('/<username>')
-# def user_home():
-#     """View user's homepage"""
+@app.route('/login', methods=["POST"])
+def user_home():
+    """Log in a user and redirect to their notes"""
+
+    session['nico'] = 'pico'
+
+    username = request.form.get('username')
+    print(username)
+    password = request.form.get('password')
+    print(password)
+
+    if session[username] == password:
+        return render_template('note.html')
+
+    # return render_template('note.html')
 
 
 

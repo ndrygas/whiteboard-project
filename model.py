@@ -34,6 +34,13 @@ class Note(db.Model):
 
     def __repr__(self):
         return f'<Note note_id={self.note_id} title={self.title}>'
+    
+
+# class SharedNote(db.Model):
+#     """A note that is shared between many users."""
+
+#     note_id = db.Column(db.Integer, db.ForeignKey('notes.note_id'))
+
 
 
 

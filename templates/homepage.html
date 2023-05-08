@@ -6,15 +6,19 @@
 
   <h2>Log In</h2>
 
-  <form>
-    <label for="username">Username</label>
-    <input type="text" name="username" id="l-username">
-  </form>
-
-  <form>
-    <label for="password">Password </label>
-    <input type="text" name="password" id="l-password">
-  </form>
+  <form method="POST" action="/login">
+    <div class="login-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="l-username">
+    </div>
+    <div class="login-group">
+        <label for="password">Password </label>
+        <input type="text" name="password" id="l-password">
+    </div>
+    <div class="login-group">
+        <input type="submit">
+    </div>
+</form>
 
   <!-- <h2>Create Account</h2>
 
