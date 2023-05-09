@@ -2,7 +2,7 @@
 {% block title %}Whiteboard{% endblock %}
 
 {% block body %}
-  <h1>Welcome</h1>
+  <h1>Welcome to the Whiteboard</h1>
 
   <h2>Log In</h2>
 
@@ -20,17 +20,21 @@
     </div>
 </form>
 
-  <!-- <h2>Create Account</h2>
+  <h2>Create Account</h2>
 
-  <form>
-    <label for="username">Username</label>
-    <input type="text" name="username" id="c-username">
+  <form method="POST" action="/create-account">
+    <div class="create-account-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="c-username">
+    </div>
+    <div class="create-account-group">
+        <label for="password">Password </label>
+        <input type="text" name="password" id="c-password">
+    </div>
+    <div class="create-account-group">
+        <input type="submit">
+    </div>
   </form>
-
-  <form>
-    <label for="password">Password </label>
-    <input type="text" name="password" id="c-password">
-  </form> -->
   
   
 {% endblock %}

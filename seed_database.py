@@ -9,11 +9,15 @@ import crud
 import model
 import server
 
-os.system("pg_dump whiteboard > whiteboard.sql")
+# os.system("pg_dump whiteboard > whiteboard.sql")
 os.system("dropdb whiteboard")
 os.system("createdb whiteboard")
-os.system("psql whiteboard < whiteboard.sql")
-
+# os.system("psql whiteboard < whiteboard.sql")
 
 model.connect_to_db(server.app)
-# model.db.create_all()
+model.db.create_all()
+
+test_user = crud.create_user(username='nico', password='pico')
+
+model.db.session.add(test_user)
+model.db.session.commit()

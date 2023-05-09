@@ -13,7 +13,7 @@ class User(db.Model):
     username = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
 
-    users = db.relationship("User", back_populates="notes")
+    notes = db.relationship("Note", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} user_name={self.username}>'
@@ -30,7 +30,7 @@ class Note(db.Model):
     favorite = db.Column(db.Boolean, nullable=False)
     shared = db.Column(db.Boolean, nullable=False)
 
-    notes = db.relationship("Note", back_populates="users")
+    user = db.relationship("User", back_populates="notes")
 
     def __repr__(self):
         return f'<Note note_id={self.note_id} title={self.title}>'
