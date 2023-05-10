@@ -3,7 +3,7 @@
 from flask import Flask
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, jsonify)
 from model import connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
@@ -25,20 +25,22 @@ def create_account():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    if username != None and password !=None:
-        try:
-            user = crud.get_user_by_name(username)
-            if user:
-                flash("That username already exists. Please use a different name.")
-        except:
-    
-            
-                user = crud.create_user(username, password)
-                db.session.add(user)
-                db.session.commit()
-                flash("Success! Please log in.")
-    # else: 
-    #     flash("Please fill in the create account form.")
+    print(username, password)
+
+    if username != "" and password != "":
+        user = crud.get_user_by_name(username)
+        if user:
+            flash("That username already exists. Please use a different name.")
+        else:    
+            user = crud.create_user(username, password)
+            db.session.add(user)
+            db.session.commit()
+            initial_note = crud.create_note(user_id=user.user_id)
+            db.session.add(initial_note)
+            db.session.commit()
+            flash("Success! Please log in.")
+    else: 
+        flash("Please fill in the create account form.")
         
         
     return redirect("/")
@@ -50,20 +52,38 @@ def log_in():
     username = request.form.get('username')
     password = request.form.get('password')
    
+    user = crud.get_user_by_name(username)
+    if not user or user.password != password:
+        flash("Please enter valid credentials or create a new account.")
+        return redirect("/")
+    else:
+        session["username"] = user.username
+        flash(f"Successfully logged into {user.username}'s account.")
+        return redirect(f"/{user.username}")
     
    
-    try:
-        if session[username] == password:
-            return render_template('note.html')
-    except: 
-        flash("Please enter valid credentials")
-        return redirect("/")
+    # try:
+    #     if session[username] == password:
+    #         return render_template('note.html')
+    # except: 
+    #     flash("Please enter valid credentials")
+    #     return redirect("/notes")
     
-# @app.route('/notes', methods=["POST"])
-# def user_home():
+@app.route('/<username>')
+def user_home(username):
     
+    user = crud.get_user_by_name(username)
+    notes = crud.get_notes_by_user_id(user.user_id)
+    print(notes)
+    print(user)
+    print(session["username"])
 
-    # return render_template('note.html')
+
+    # if user != None or user :
+        
+    return render_template('note.html', user=user, notes=notes)
+    # else:
+    #     flash("nope")
 
 
 

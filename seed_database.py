@@ -17,7 +17,7 @@ os.system("createdb whiteboard")
 model.connect_to_db(server.app)
 model.db.create_all()
 
-test_user = crud.create_user(username='nico', password='pico')
+# test_user = crud.create_user(username='nico', password='pico')
 
-model.db.session.add(test_user)
-model.db.session.commit()
+# model.db.session.add(test_user)
+# model.db.session.commit()

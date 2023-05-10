@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.username }}'s Whiteboard{% endblock %}
+
+{% block body %}
+  <h1>{{notes[0].title}}:</h1>
+
+  
+    <form method="POST" action="/note">
+      <div class="note-group">
+          <label for="title">Edit title</label>
+          <input type="text" name="title" id="title" value="{{notes[0].user_id}}">
+      </div>
+      <div class="note-group">
+        <label for="body">Body</label>
+        <textarea type="text" name="body" id="body"></textarea>
+      </div>
+      <div class="note-group">
+        <input type="submit">
+      </div>
+    </form>
+  </p>
+</form>
+
+  
+  
+  
+{% endblock %}

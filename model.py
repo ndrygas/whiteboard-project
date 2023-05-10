@@ -27,6 +27,7 @@ class Note(db.Model):
     note_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     title = db.Column(db.String(50))
+    body = db.Column(db.Text)
     favorite = db.Column(db.Boolean, nullable=False)
     shared = db.Column(db.Boolean, nullable=False)
 

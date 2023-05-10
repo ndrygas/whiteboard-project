@@ -28,6 +28,7 @@ CREATE TABLE public.notes (
     note_id integer NOT NULL,
     user_id integer,
     title character varying(50),
+    body text,
     favorite boolean NOT NULL,
     shared boolean NOT NULL
 );
@@ -110,7 +111,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 -- Data for Name: notes; Type: TABLE DATA; Schema: public; Owner: Cryotics
 --
 
-COPY public.notes (note_id, user_id, title, favorite, shared) FROM stdin;
+COPY public.notes (note_id, user_id, title, body, favorite, shared) FROM stdin;
 \.
 
 
@@ -119,6 +120,8 @@ COPY public.notes (note_id, user_id, title, favorite, shared) FROM stdin;
 --
 
 COPY public.users (user_id, username, password) FROM stdin;
+1	nico	pico
+2	wico	lico
 \.
 
 
@@ -133,7 +136,7 @@ SELECT pg_catalog.setval('public.notes_note_id_seq', 1, false);
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Cryotics
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_user_id_seq', 2, true);
 
 
 --
@@ -150,6 +153,14 @@ ALTER TABLE ONLY public.notes
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: Cryotics
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
 
 
 --

@@ -7,6 +7,7 @@ def create_user(username, password):
 
     user = User(username=username, password=password)
     
+    
     return user
 
 
@@ -27,10 +28,10 @@ def get_all_users():
     return User.query.all()
 
 
-def create_note(user_id, title, favorite=True, shared=False):
+def create_note(user_id, title="", body="", favorite=True, shared=False):
     """Create and return a new note."""
 
-    note = Note(user_id=user_id, title=title, favorite=favorite, shared=shared)
+    note = Note(user_id=user_id, title=title, body=body, favorite=favorite, shared=shared)
 
     return note
 
@@ -39,6 +40,12 @@ def get_note_by_id(note_id):
     """Return a note by its primary key (ID)."""
 
     return Note.query.get(note_id)
+
+def get_notes_by_user_id(user_id):
+    """Return all the notes made by a user."""
+
+    return Note.query.filter_by(user_id=user_id).all()
+    
 
 def get_all_notes():
     """Returns all notes."""
