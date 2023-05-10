@@ -49,9 +49,6 @@ def log_in():
 
     username = request.form.get('username')
     password = request.form.get('password')
-
-    
-    
    
     
    
