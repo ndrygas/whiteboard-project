@@ -79,7 +79,7 @@ def user_home(username):
     print(session["username"])
 
 
-    # if user != None or user :
+    
         
     return render_template('note.html', user=user, notes=notes)
     # else:
