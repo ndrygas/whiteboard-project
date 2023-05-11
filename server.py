@@ -73,17 +73,31 @@ def log_in():
 def user_home(username):
     
     user = crud.get_user_by_name(username)
+    print(user)
     notes = crud.get_notes_by_user_id(user.user_id)
     print(notes)
-    print(user)
     print(session["username"])
-
-
-    
         
     return render_template('note.html', user=user, notes=notes)
-    # else:
-    #     flash("nope")
+
+
+@app.route("/update-note", methods=["POST"])
+def update_note():
+    
+    title = request.form.get('title')
+    body = request.form.get('body')
+    print(title, body)
+
+    username = session["username"]
+
+    user = crud.get_user_by_name(username)
+    # print(session["username"])
+    print(title, body)
+        
+        
+    return redirect(f"/{user.username}")
+
+
 
 
 
