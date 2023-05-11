@@ -73,11 +73,11 @@ def log_in():
 @app.route('/<username>')
 def user_home(username):
     
+    username = session["username"]
     user = crud.get_user_by_name(username)
-    print(user)
+    # print(user)
     notes = crud.get_notes_by_user_id(user.user_id)
-    print(notes)
-    print(session["username"])
+    # print(notes)
         
     return render_template('note.html', user=user, notes=notes)
 
@@ -87,17 +87,31 @@ def update_note():
     
     title = request.form.get('title')
     body = request.form.get('body')
+    note_id = request.form.get('note-id')
+    print(note_id)
     username = session["username"]
     user = crud.get_user_by_name(username)    
-    notes = crud.get_notes_by_user_id(user.user_id)
+    note = crud.get_note_by_id(note_id)
 
-    crud.update_note(notes[0].note_id, title, body)
+    crud.update_note(note.note_id, title, body)
     db.session.commit()
         
     return redirect(f"/{user.username}")
 
+@app.route("/new-note", methods=["POST"])
+def new_note():
 
+    # title = request.form.get("title")
+    username = session["username"]
+    print(username)
+    user = crud.get_user_by_name(username)
+    print(user)
+    note = crud.create_note(user.user_id)
+    db.session.add(note)
+    print(crud.get_notes_by_user_id(user_id=user.user_id))
+    db.session.commit()    
 
+    return redirect(f"/{user.username}")
 
 
 if __name__ == "__main__":

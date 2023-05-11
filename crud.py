@@ -7,7 +7,6 @@ def create_user(username, password):
 
     user = User(username=username, password=password)
     
-    
     return user
 
 

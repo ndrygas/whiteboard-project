@@ -17,14 +17,23 @@
       <div class="note-group">
         <button id="save-note">Save note</button>
       </div>
+      <div>
+        <input type="hidden" value="{{note.note_id}}" name="note-id">
+      </div>
       
     </form>
     {% endfor %}
-    <form method="POST" action="new-note">
-      <div class="note-group">
+    <form method="POST" action="/new-note">
+      <div class="new-note">
+        <!-- <div class="note-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title">
+      </div> -->
         <button id="new-note">New note</button>
       </div>
     </form>
+
+    <!-- <a href="/new-note">New note</a> -->
   </p>
 </form>
 
