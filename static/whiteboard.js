@@ -8,7 +8,7 @@
 //     const body = document.querySelector("#body").innerHTML;
 //     console.log(title, body);
 
-//     fetch(`/<username`)
+//     fetch(`/<username>`)
 //     .then((response) => response.text())
 //     // console.log(response.text())
 //     .then((info) => {

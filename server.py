@@ -51,6 +51,7 @@ def log_in():
 
     username = request.form.get('username')
     password = request.form.get('password')
+    
    
     user = crud.get_user_by_name(username)
     if not user or user.password != password:
@@ -86,14 +87,12 @@ def update_note():
     
     title = request.form.get('title')
     body = request.form.get('body')
-    print(title, body)
-
     username = session["username"]
+    user = crud.get_user_by_name(username)    
+    notes = crud.get_notes_by_user_id(user.user_id)
 
-    user = crud.get_user_by_name(username)
-    # print(session["username"])
-    print(title, body)
-        
+    crud.update_note(notes[0].note_id, title, body)
+    db.session.commit()
         
     return redirect(f"/{user.username}")
 

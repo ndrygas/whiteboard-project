@@ -41,11 +41,12 @@ def get_note_by_id(note_id):
 
     return Note.query.get(note_id)
 
+
 def get_notes_by_user_id(user_id):
     """Return all the notes made by a user."""
 
     return Note.query.filter_by(user_id=user_id).all()
-    
+
 
 def get_all_notes():
     """Returns all notes."""
@@ -53,8 +54,15 @@ def get_all_notes():
     return Note.query.all()
 
 
-def check_login(username, password):
-    """Verify username and password matches """
+def update_note(note_id, title, body):
+    """Update the contents of a note."""
+
+    note = Note.query.get(note_id)
+    note.title = title
+    note.body = body
+
+# def check_login(username, password):
+#     """Verify username and password matches """
 
 if __name__ == "__main__":
     from server import app
