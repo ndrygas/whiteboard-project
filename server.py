@@ -45,6 +45,7 @@ def create_account():
         
     return redirect("/")
 
+
 @app.route('/login', methods=["POST"])
 def log_in():
     """Log in a user and redirect to their notes"""
@@ -96,7 +97,7 @@ def update_note():
     crud.update_note(note.note_id, title, body)
     db.session.commit()
         
-    return redirect(f"/{user.username}")
+    return jsonify("note saved")
 
 @app.route("/new-note", methods=["POST"])
 def new_note():
@@ -112,6 +113,7 @@ def new_note():
     db.session.commit()    
 
     return redirect(f"/{user.username}")
+
 
 
 if __name__ == "__main__":
