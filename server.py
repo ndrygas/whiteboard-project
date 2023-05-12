@@ -96,8 +96,9 @@ def update_note():
 
     crud.update_note(note.note_id, title, body)
     db.session.commit()
-        
-    return jsonify("note saved")
+    
+    return redirect(f"/{user.username}")
+    # return jsonify("note saved")
 
 @app.route("/new-note", methods=["POST"])
 def new_note():
