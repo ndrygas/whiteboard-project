@@ -86,9 +86,10 @@ def user_home(username):
 @app.route("/update-note", methods=["POST"])
 def update_note():
     
-    title = request.form.get('title')
-    body = request.form.get('body')
-    note_id = request.form.get('note-id')
+    
+    title = request.json.get("title")
+    body = request.json.get("body")
+    note_id = request.json.get("id")
     print(note_id)
     username = session["username"]
     user = crud.get_user_by_name(username)    
@@ -97,8 +98,11 @@ def update_note():
     crud.update_note(note.note_id, title, body)
     db.session.commit()
     
-    return redirect(f"/{user.username}")
+    # return redirect(f"/{user.username}")
     # return jsonify("note saved")
+    return {
+        "success": True, 
+        "status": f"Note Saved"}
 
 @app.route("/new-note", methods=["POST"])
 def new_note():

@@ -3,26 +3,30 @@
 
 {% block body %}
   
-
+  <div id="note-forms">
   {% for note in notes %}
-    <form method="POST" action="/update-note">
+    <!-- <form> -->
+    <form id="{{note.note_id}}" method="post">
       <div class="note-group">
-          <label for="title">Title</label>
-          <input type="text" name="title" id="n-title" value="{{note.title}}">
-      </div>
-      <div class="note-group">
-        <label for="body">Body</label>
-        <textarea type="text" name="body" id="n-body">{{note.body}}</textarea>
+          <label for="n-title">Title</label>
+          <input type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
       </div>
       <div class="note-group">
-        <button id="save-note">Save note</button>
+        <label for="n-body">Body</label>
+        <textarea type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
       </div>
-      <div>
-        <input type="hidden" value="{{note.note_id}}" name="note-id" id="id">
+      <div class="note-group">
+        <!-- <button id="save-note">Save note</button> -->
+        <input type="submit" value="Save note">
+
       </div>
-      
+      <!-- <div>
+        <input type="hidden" value="{{note.note_id}}" name="note-id" id="{{note.note_id}}">
+      </div>
+       -->
     </form>
     {% endfor %}
+  </div>  
     <form method="POST" action="/new-note">
       <div class="new-note">
         <!-- <div class="note-group">
@@ -37,6 +41,7 @@
   </p>
 </form>
 
+<script src="/static/whiteboard.js"></script>
   
   
   
