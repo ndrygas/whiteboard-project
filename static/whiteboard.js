@@ -1,30 +1,16 @@
 'use strict';
 
-// const saveNote = document.querySelector("#save-note");
-
-// saveNote.addEventListener('click', (evt) => {
-//     evt.preventDefault();
-//     const id = document.querySelector("#id").value;
-//     const title = document.querySelector("#title").value;
-//     const body = document.querySelector("#body").innerHTML;               
-//     console.log(id, title, body);
-
-//     fetch('/update-note')
-//     .then((response) => response.text())
-//     .then((info) => {
-//         const nInfo = JSON.parse(info);
-//         console.log(nInfo);
-//     });
-// });
 const allNotes = document.querySelectorAll("#note-forms form")
 for (const noteForm of allNotes) {
     
-    noteForm.addEventListener('submit', (evt) => {
+    const noteId = noteForm.id;
+    console.log(noteId);
+    const saveBtn = document.querySelector(`#save-note${noteId}`);
+    const delBtn = document.querySelector(`#delete-note${noteId}`);
+
+    saveBtn.addEventListener('click', (evt) => {
         evt.preventDefault();
-        const noteId = evt.target.id;
-        // const id = document.querySelector("#note-id").value;
-        // console.log(id)
-    
+
         const formInputs = {
           id: noteId,
           title: document.querySelector(`#n-title${noteId}`).value,
@@ -45,29 +31,23 @@ for (const noteForm of allNotes) {
           });
       });
 
-}
-// document.querySelector('form').addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-//     console.log(evt.target)
-//     // const id = document.querySelector("#note-id").value;
-//     // console.log(id)
+      delBtn.addEventListener('click', (evt) => {
+        evt.preventDefault();
+    
+        const formInputs = {id: noteId};
+        console.log(formInputs)
+      
+        fetch('/delete-note', {
+          method: 'POST',
+          body: JSON.stringify(formInputs),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            alert(responseJson.status);
+          });
+      });
 
-//     const formInputs = {
-//       id: document.querySelector("#note-id").value,
-//       title: document.querySelector("#n-title").value,
-//       body: document.querySelector("#n-body").innerHTML,
-//     };
-//     console.log(formInputs)
-  
-//     fetch('/update-note', {
-//       method: 'POST',
-//       body: JSON.stringify(formInputs),
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((responseJson) => {
-//         alert(responseJson.status);
-//       });
-//   });
+}

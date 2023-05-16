@@ -59,6 +59,8 @@ def update_note(note_id, title, body):
     note = Note.query.get(note_id)
     note.title = title
     note.body = body
+    
+    
 
 # def check_login(username, password):
 #     """Verify username and password matches """

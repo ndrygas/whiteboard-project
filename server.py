@@ -48,11 +48,10 @@ def create_account():
 
 @app.route('/login', methods=["POST"])
 def log_in():
-    """Log in a user and redirect to their notes"""
+    """Log in a user and redirect to their notes."""
 
     username = request.form.get('username')
     password = request.form.get('password')
-    
    
     user = crud.get_user_by_name(username)
     if not user or user.password != password:
@@ -63,16 +62,20 @@ def log_in():
         flash(f"Successfully logged into {user.username}'s account.")
         return redirect(f"/{user.username}")
     
-   
-    # try:
-    #     if session[username] == password:
-    #         return render_template('note.html')
-    # except: 
-    #     flash("Please enter valid credentials")
-    #     return redirect("/notes")
+
+@app.route('/logout', methods=["POST"])
+def log_out():
+    """Log out a user and redirect to log in screen."""
+
+    session["username"] = None
+
+    return redirect("/")
+
+    
     
 @app.route('/<username>')
 def user_home(username):
+    """Display a user's homepage and all of their active notes."""
     
     username = session["username"]
     user = crud.get_user_by_name(username)
@@ -83,31 +86,10 @@ def user_home(username):
     return render_template('note.html', user=user, notes=notes)
 
 
-@app.route("/update-note", methods=["POST"])
-def update_note():
-    
-    
-    title = request.json.get("title")
-    body = request.json.get("body")
-    note_id = request.json.get("id")
-    print(note_id)
-    username = session["username"]
-    user = crud.get_user_by_name(username)    
-    note = crud.get_note_by_id(note_id)
-
-    crud.update_note(note.note_id, title, body)
-    db.session.commit()
-    
-    # return redirect(f"/{user.username}")
-    # return jsonify("note saved")
-    return {
-        "success": True, 
-        "status": f"Note Saved"}
-
 @app.route("/new-note", methods=["POST"])
 def new_note():
+    """Create a new note in a user's profile."""
 
-    # title = request.form.get("title")
     username = session["username"]
     print(username)
     user = crud.get_user_by_name(username)
@@ -119,6 +101,32 @@ def new_note():
 
     return redirect(f"/{user.username}")
 
+
+@app.route("/update-note", methods=["POST"])
+def update_note():
+    """Save a user's progress on a note."""
+    
+    title = request.json.get("title")
+    body = request.json.get("body")
+    note_id = request.json.get("id")
+    
+    note = crud.get_note_by_id(note_id)
+    crud.update_note(note.note_id, title, body)
+    db.session.commit()
+    
+    return {"status": f"Note Saved"}
+
+
+@app.route("/delete-note", methods=["POST"])
+def delete_note():
+    """Delete a user's note."""
+
+    note_id = request.json.get("id")
+    note = crud.get_note_by_id(note_id)
+    db.session.delete(note)
+    db.session.commit()
+
+    return {"status": f"Note Deleted"}
 
 
 if __name__ == "__main__":
