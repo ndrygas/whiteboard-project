@@ -27,7 +27,7 @@ for (const noteForm of allNotes) {
         })
           .then((response) => response.json())
           .then((responseJson) => {
-            alert(responseJson.status);
+            console.log(responseJson.status);
           });
       });
 
@@ -46,7 +46,8 @@ for (const noteForm of allNotes) {
         })
           .then((response) => response.json())
           .then((responseJson) => {
-            alert(responseJson.status);
+            location.reload();
+            console.log(responseJson.status);
           });
       });
 
