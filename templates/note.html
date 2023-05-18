@@ -2,7 +2,7 @@
 {% block title %}{{ user.username }}'s Whiteboard{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar bg-dark navbar-expand-sm sticky-top bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">{{ user.username }}'s Whiteboard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,18 +10,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+        <!-- <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+        <!-- </li> -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <form method="POST" action="/new-note">
+            <!-- <div class="new-note"> -->
+              <button class="btn btn-outline-success" id="new-note" type="submit">New note</button>
+            <!-- </div> -->
+          </form>
+          <!-- <button class="nav-link" action="/new-note" method="POST">New Note</a> -->
+          <!-- <button id="new-note">New note</button> -->
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">New note</a>
+          <form method="POST" action="/logout">
+          <!-- <a class="nav-link" href="#">Logout</a> -->
+          <button class="btn btn-outline-danger" id="log-out" type="submit">Logout</button>
+        </form>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -38,19 +47,22 @@
         <textarea type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
       </div>
       <div class="note-group">
-        <button id="save-note{{note.note_id}}">Save</button>
-        <button id="delete-note{{note.note_id}}">Delete</button>
+        <!-- <button id="save-note{{note.note_id}}">Save</button> -->
+        <button id="save-note{{note.note_id}}" type="button" class="btn btn-primary btn-sm">Save</button>
+        <!-- <i class="bi bi-save" ></i> -->
+        <!-- <button id="delete-note{{note.note_id}}">Delete</button> -->
+        <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
         <!-- <input type="submit" value="Save note"> -->
 
       </div>
     </form>
     {% endfor %}
   </div>  
-    <form method="POST" action="/new-note">
+    <!-- <form method="POST" action="/new-note">
       <div class="new-note">
         <button id="new-note">New note</button>
       </div>
-    </form>
+    </form> -->
 
   </p>
 </form>

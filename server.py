@@ -16,7 +16,14 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """View homepage."""
 
-    return render_template('homepage.html')
+    try:
+        if session["username"]:
+            username = session["username"]
+            user = crud.get_user_by_name(username)
+            return redirect(f"/{user.username}")
+    except:
+        return render_template('homepage.html')
+    
 
 @app.route("/create-account", methods=["POST"])
 def create_account():
@@ -67,23 +74,26 @@ def log_in():
 def log_out():
     """Log out a user and redirect to log in screen."""
 
-    session["username"] = None
+    del session["username"]
 
     return redirect("/")
-
     
     
 @app.route('/<username>')
 def user_home(username):
     """Display a user's homepage and all of their active notes."""
-    
-    username = session["username"]
-    user = crud.get_user_by_name(username)
-    # print(user)
-    notes = crud.get_notes_by_user_id(user.user_id)
-    # print(notes)
+    try: 
+
+        username = session["username"]
+        user = crud.get_user_by_name(username)
+        notes = crud.get_notes_by_user_id(user.user_id)
         
-    return render_template('note.html', user=user, notes=notes)
+        return render_template('note.html', user=user, notes=notes)
+    
+    except:
+        flash(f"You must be logged in to view your whiteboard.")
+        return redirect("/")
+
 
 
 @app.route("/new-note", methods=["POST"])
