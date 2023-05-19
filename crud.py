@@ -42,9 +42,9 @@ def get_note_by_id(note_id):
 
 
 def get_notes_by_user_id(user_id):
-    """Return all the notes made by a user."""
+    """Return all the notes made by a user, ordered by note ID."""
 
-    return Note.query.filter_by(user_id=user_id).all()
+    return Note.query.filter_by(user_id=user_id).order_by("note_id").all()
 
 
 def get_all_notes():
