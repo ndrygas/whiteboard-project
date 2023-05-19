@@ -1,24 +1,23 @@
 'use strict';
 
-const allNotes = document.querySelectorAll("#note-forms form")
-for (const noteForm of allNotes) {
-    
-    const noteId = noteForm.id;
-    console.log(noteId);
-    const saveBtn = document.querySelector(`#save-note${noteId}`);
-    const delBtn = document.querySelector(`#delete-note${noteId}`);
+const saveNotes = document.querySelector("#save-notes");
+const allNotes = document.querySelectorAll("#note-forms form");
 
-    saveBtn.addEventListener('click', (evt) => {
-        evt.preventDefault();
+saveNotes.addEventListener("click", (evt) => {
+    evt.preventDefault();
 
-        const formInputs = {
+    for (const noteForm of allNotes) {
+      const noteId = noteForm.id;
+      console.log(noteId);
+
+          const formInputs = {
           id: noteId,
           title: document.querySelector(`#n-title${noteId}`).value,
           body: document.querySelector(`#n-body${noteId}`).value,
         };
-        console.log(formInputs)
+        console.log(formInputs);
       
-        fetch('/update-note', {
+        fetch('/save-notes', {
           method: 'POST',
           body: JSON.stringify(formInputs),
           headers: {
@@ -29,7 +28,39 @@ for (const noteForm of allNotes) {
           .then((responseJson) => {
             console.log(responseJson.status);
           });
-      });
+      }});
+    
+
+
+for (const noteForm of allNotes) {
+    
+    const noteId = noteForm.id;
+    console.log(noteId);
+    // const saveBtn = document.querySelector(`#save-note${noteId}`);
+    const delBtn = document.querySelector(`#delete-note${noteId}`);
+
+    // saveBtn.addEventListener('click', (evt) => {
+    //     evt.preventDefault();
+
+    //     const formInputs = {
+    //       id: noteId,
+    //       title: document.querySelector(`#n-title${noteId}`).value,
+    //       body: document.querySelector(`#n-body${noteId}`).value,
+    //     };
+    //     console.log(formInputs)
+      
+    //     fetch('/update-note', {
+    //       method: 'POST',
+    //       body: JSON.stringify(formInputs),
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     })
+    //       .then((response) => response.json())
+    //       .then((responseJson) => {
+    //         console.log(responseJson.status);
+    //       });
+    //   });
 
       delBtn.addEventListener('click', (evt) => {
         evt.preventDefault();

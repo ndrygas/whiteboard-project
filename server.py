@@ -112,7 +112,7 @@ def new_note():
     return redirect(f"/{user.username}")
 
 
-@app.route("/update-note", methods=["POST"])
+@app.route("/save-notes", methods=["POST"])
 def update_note():
     """Save a user's progress on a note."""
     
