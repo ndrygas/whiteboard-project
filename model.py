@@ -29,7 +29,8 @@ class Note(db.Model):
     title = db.Column(db.String(50))
     body = db.Column(db.Text)
     favorite = db.Column(db.Boolean, nullable=False)
-    shared = db.Column(db.Boolean, nullable=False)
+    shared = db.Column(db.Text, nullable=False)
+    #many to many with middle join or something
 
     user = db.relationship("User", back_populates="notes")
 

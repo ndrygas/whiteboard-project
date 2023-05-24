@@ -27,10 +27,11 @@ def get_all_users():
     return User.query.all()
 
 
-def create_note(user_id, title="", body="", favorite=True, shared=False):
+def create_note(user_id, title="", body="", favorite=True, shared=""):
     """Create and return a new note."""
 
-    note = Note(user_id=user_id, title=title, body=body, favorite=favorite, shared=shared)
+    note = Note(user_id=user_id, title=title, body=body, 
+                favorite=favorite, shared=shared)
 
     return note
 
