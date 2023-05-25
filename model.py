@@ -13,7 +13,7 @@ class User(db.Model):
     username = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
 
-    notes = db.relationship("Note", back_populates="user")
+    notes = db.relationship("Note", secondary="notes_users", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} user_name={self.username}>'
@@ -29,21 +29,27 @@ class Note(db.Model):
     title = db.Column(db.String(50))
     body = db.Column(db.Text)
     favorite = db.Column(db.Boolean, nullable=False)
-    shared = db.Column(db.Text, nullable=False)
+    # shared = db.Column(db.Text, nullable=False)
     #many to many with middle join or something
 
-    user = db.relationship("User", back_populates="notes")
+    user = db.relationship("User", secondary="notes_users", back_populates="notes")
 
     def __repr__(self):
         return f'<Note note_id={self.note_id} title={self.title}>'
     
 
-# class SharedNote(db.Model):
-#     """A note that is shared between many users."""
+class NoteUser(db.Model):
+    """A user of a shared note."""
 
-#     note_id = db.Column(db.Integer, db.ForeignKey('notes.note_id'))
+    __tablename__ = 'notes_users'
 
+    note_user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    note_id = db.Column(db.Integer, db.ForeignKey("notes.note_id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
+    def __repr__(self):
+        return f'''<NoteUser note_user_id={self.note_user_id} 
+                note_id={self.note_id} user_id={self.user_id}>'''
 
 
 
