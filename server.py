@@ -87,8 +87,9 @@ def user_home(username):
         username = session["username"]
         user = crud.get_user_by_name(username)
         notes = crud.get_notes_by_user_id(user.user_id)
+        shared = crud.get_shared_notes_by_user_id(user.user_id)
         
-        return render_template('note.html', user=user, notes=notes)
+        return render_template('note.html', user=user, notes=notes, shared=shared)
     
     except:
         flash(f"You must be logged in to view your whiteboard.")
@@ -137,6 +138,14 @@ def delete_note():
     db.session.commit()
 
     return {"status": f"Note Deleted"}
+
+
+@app.route("/share-note", methods=["POST"])
+def share_note():
+    """Share a note with another user."""
+
+    note_id = request.json.get("id")
+    note = crud
 
 
 if __name__ == "__main__":

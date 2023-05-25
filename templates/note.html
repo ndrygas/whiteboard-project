@@ -29,7 +29,8 @@
     </div>
   </div>
 </nav>
-  <div id="note-forms">
+
+<div id="note-forms">
   {% for note in notes %}
     <form id="{{note.note_id}}" method="post">
 
@@ -47,10 +48,36 @@
       </div>
 
     </form>
+  {% endfor %}
+  
+
+  <p>YO</p>
+
+  
+    {% for note in shared %}
+      {% if note.note_id not in notes %}
+        <form id="{{note.note_id}}" method="post">
+    
+          <div class="note-group">
+              <input type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
+          </div>
+    
+          <div class="note-group">
+            <textarea type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
+          </div>
+    
+          <div class="note-group">
+            <!-- <button id="save-note{{note.note_id}}" type="button" class="btn btn-primary btn-sm">Save</button> -->
+            <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
+          </div>
+    
+        </form>
+        {% endif %}
     {% endfor %}
-  </div>  
-  </p>
-</form>
+</div>  
+  <!-- </div>
+  </p> -->
+<!-- </form> -->
 
 <script src="/static/whiteboard.js"></script>
   

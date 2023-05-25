@@ -1,6 +1,6 @@
 "CRUD operations"
 
-from model import db, User, Note, connect_to_db
+from model import db, User, Note, NoteUser, connect_to_db
 
 def create_user(username, password):
     """Create and return a new user."""
@@ -61,10 +61,21 @@ def update_note(note_id, title, body):
     note.title = title
     note.body = body
     
-    
 
-# def check_login(username, password):
-#     """Verify username and password matches """
+def create_share(note_id, user_id):
+    """Create a share for a note."""
+
+    note_user = NoteUser(note_id=note_id, user_id=user_id)
+
+    return note_user
+
+
+def get_shared_notes_by_user_id(user_id):
+    """Return all shared notes associated with a user ID."""
+
+    return NoteUser.query.filter_by(user_id=user_id).order_by("note_id").all()
+
+
 
 if __name__ == "__main__":
     from server import app
