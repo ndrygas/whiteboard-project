@@ -36,31 +36,34 @@ for (const noteForm of allNotes) {
     
     const noteId = noteForm.id;
     console.log(noteId);
-    // const saveBtn = document.querySelector(`#save-note${noteId}`);
+    const shareBtn = document.querySelector(`#share-note${noteId}`);
     const delBtn = document.querySelector(`#delete-note${noteId}`);
 
-    // saveBtn.addEventListener('click', (evt) => {
-    //     evt.preventDefault();
+    shareBtn.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        const userId = document.querySelector('#shared-user').value;
 
-    //     const formInputs = {
-    //       id: noteId,
-    //       title: document.querySelector(`#n-title${noteId}`).value,
-    //       body: document.querySelector(`#n-body${noteId}`).value,
-    //     };
-    //     console.log(formInputs)
+        const formInputs = {
+          id: noteId,
+          user: userId
+          // title: document.querySelector(`#n-title${noteId}`).value,
+          // body: document.querySelector(`#n-body${noteId}`).value,
+        };
+        console.log(formInputs)
       
-    //     fetch('/update-note', {
-    //       method: 'POST',
-    //       body: JSON.stringify(formInputs),
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     })
-    //       .then((response) => response.json())
-    //       .then((responseJson) => {
-    //         console.log(responseJson.status);
-    //       });
-    //   });
+        fetch('/share-note', {
+          method: 'POST',
+          body: JSON.stringify(formInputs),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            // location.reload();
+            console.log(responseJson.status);
+          });
+      });
 
       delBtn.addEventListener('click', (evt) => {
         evt.preventDefault();

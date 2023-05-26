@@ -82,16 +82,21 @@ def log_out():
 @app.route('/<username>')
 def user_home(username):
     """Display a user's homepage and all of their active notes."""
-    try: 
-
+    
+    if session['username']:
         username = session["username"]
         user = crud.get_user_by_name(username)
         notes = crud.get_notes_by_user_id(user.user_id)
         shared = crud.get_shared_notes_by_user_id(user.user_id)
+        shared_list = []
+        for note in shared:
+            note_obj = crud.get_note_by_id(note.note_id)
+            shared_list.append(note_obj)
+        print(shared)
         
-        return render_template('note.html', user=user, notes=notes, shared=shared)
+        return render_template('note.html', user=user, notes=notes, shared=shared_list)
     
-    except:
+    else:
         flash(f"You must be logged in to view your whiteboard.")
         return redirect("/")
 
@@ -145,7 +150,17 @@ def share_note():
     """Share a note with another user."""
 
     note_id = request.json.get("id")
-    note = crud
+    username = request.json.get("user")
+    note = crud.get_note_by_id(note_id)
+    user = crud.get_user_by_name(username)
+    print(user)
+    if not user:
+        return {"status": f"Error: No matching username, please try again."}
+    elif user:
+        new_share = crud.create_share(note_id=note.note_id, user_id=user.user_id)
+        db.session.add(new_share)
+        db.session.commit()
+        return {"status": f"Note Share successful"}
 
 
 if __name__ == "__main__":
