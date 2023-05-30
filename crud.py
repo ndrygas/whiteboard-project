@@ -76,6 +76,12 @@ def get_shared_notes_by_user_id(user_id):
     return NoteUser.query.filter_by(user_id=user_id).order_by("note_id").all()
 
 
+def get_shared_note_by_note_id_and_user_id(note_id, user_id):
+    """Return a shared note by its primary key."""
+
+    return NoteUser.query.filter_by(note_id=note_id, user_id=user_id).first()
+
+
 
 if __name__ == "__main__":
     from server import app

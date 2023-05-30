@@ -43,19 +43,20 @@
       </div>
 
       <div class="note-group">
-        <input type="text" name="shared-user" id="shared-user">
+        <input type="text" name="shared-user" id="shared-user{{note.note_id}}">
         <button id="share-note{{note.note_id}}" type="button" class="btn btn-primary btn-sm">Share</button>
         <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
       </div>
 
     </form>
   {% endfor %}
-  
+</div>  
 
   <p>Shared Notes:</p>
 
-  
+<div id="shared-notes">
     {% for note in shared %}
+      {% if note not in notes %}
         <form id="{{note.note_id}}" method="post">
     
           <div class="note-group">
@@ -68,12 +69,12 @@
     
           <div class="note-group">
             
-            <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
+            <button id="remove-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Remove</button>
           </div>
-    
+    {% endif %}
         </form>
     {% endfor %}
-</div>  
+</div>
   <!-- </div>
   </p> -->
 <!-- </form> -->

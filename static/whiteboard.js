@@ -38,16 +38,15 @@ for (const noteForm of allNotes) {
     console.log(noteId);
     const shareBtn = document.querySelector(`#share-note${noteId}`);
     const delBtn = document.querySelector(`#delete-note${noteId}`);
+    const removeBtn = document.querySelector(`#remove-note${noteId}`);
 
     shareBtn.addEventListener('click', (evt) => {
         evt.preventDefault();
-        const userId = document.querySelector('#shared-user').value;
+        const userId = document.querySelector(`#shared-user${noteId}`).value;
 
         const formInputs = {
           id: noteId,
           user: userId
-          // title: document.querySelector(`#n-title${noteId}`).value,
-          // body: document.querySelector(`#n-body${noteId}`).value,
         };
         console.log(formInputs)
       
@@ -60,8 +59,7 @@ for (const noteForm of allNotes) {
         })
           .then((response) => response.json())
           .then((responseJson) => {
-            // location.reload();
-            console.log(responseJson.status);
+            alert(responseJson.status);
           });
       });
 
@@ -84,5 +82,33 @@ for (const noteForm of allNotes) {
             console.log(responseJson.status);
           });
       });
+}
+
+const sharedNotes = document.querySelectorAll("#shared-notes form")
+
+for (const sharedForm of sharedNotes) {
+
+  const noteId = sharedFrom.id;
+  const removeBtn = document.querySelector(`#remove-note${noteId}`);
+
+  removeBtn.addEventListener('click', (evt) => {
+    evt.preventDefault();
+  
+    const formInputs = {id: noteId};
+    console.log(formInputs)
+  
+    fetch('/remove-note', {
+      method: 'POST',
+      body: JSON.stringify(formInputs),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        location.reload();
+        console.log(responseJson.status);
+      });
+  });
 
 }

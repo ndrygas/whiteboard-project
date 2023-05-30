@@ -135,7 +135,7 @@ def update_note():
 
 @app.route("/delete-note", methods=["POST"])
 def delete_note():
-    """Delete a user's note."""
+    """Delete a user's note and remove it from shared notes in other user's whiteboards."""
 
     note_id = request.json.get("id")
     note = crud.get_note_by_id(note_id)
@@ -154,13 +154,36 @@ def share_note():
     note = crud.get_note_by_id(note_id)
     user = crud.get_user_by_name(username)
     print(user)
+
     if not user:
         return {"status": f"Error: No matching username, please try again."}
-    elif user:
-        new_share = crud.create_share(note_id=note.note_id, user_id=user.user_id)
-        db.session.add(new_share)
-        db.session.commit()
-        return {"status": f"Note Share successful"}
+    elif user and user != None:
+        dupe_note = crud.get_shared_note_by_note_id_and_user_id(note_id, user.user_id)
+        print(dupe_note)
+        if dupe_note:
+            return {"status": f"Note already shared"}
+        else:
+            new_share = crud.create_share(note_id=note.note_id, user_id=user.user_id)
+            db.session.add(new_share)
+            db.session.commit()
+            return {"status": f"Note Share successful"}
+
+
+@app.route("/remove-note", methods=["POST"])
+def remove_note():
+    """Remove a shared note from a user's whiteboard."""
+
+    note_id = request.json.get("id")
+    username = session["username"]
+    user = crud.get_user_by_name(username)
+    user_id = user.user_id
+    note_user = crud.get_shared_note_by_note_id_and_user_id(note_id, user_id)
+
+    db.session.delete(note_user)
+    db.session.commit()
+
+    return {"status": f"Note Removed"}
+
 
 
 if __name__ == "__main__":
