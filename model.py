@@ -29,8 +29,6 @@ class Note(db.Model):
     title = db.Column(db.String(50))
     body = db.Column(db.Text)
     favorite = db.Column(db.Boolean, nullable=False)
-    # shared = db.Column(db.Text, nullable=False)
-    #many to many with middle join or something
 
     user = db.relationship("User", secondary="notes_users", back_populates="notes")
 
@@ -39,7 +37,7 @@ class Note(db.Model):
     
 
 class NoteUser(db.Model):
-    """A user of a shared note."""
+    """A user of a shared note. Many-to-many relationship with notes and users."""
 
     __tablename__ = 'notes_users'
 

@@ -1,9 +1,11 @@
 'use strict';
 
+// Selectors for save button and all notes displayed on page.
 const saveNotes = document.querySelector("#save-notes");
 const allNotes = document.querySelectorAll("#note-forms form");
 
 saveNotes.addEventListener("click", (evt) => {
+    /* Update note information in database when "Save" button is clicked. */
     evt.preventDefault();
 
     for (const noteForm of allNotes) {
@@ -33,7 +35,7 @@ saveNotes.addEventListener("click", (evt) => {
 
 
 for (const noteForm of allNotes) {
-    
+    /* Adds share, delete, and remove functionality buttons to relevant notes.  */
     const noteId = noteForm.id;
     console.log(noteId);
     const shareBtn = document.querySelector(`#share-note${noteId}`);
@@ -41,29 +43,33 @@ for (const noteForm of allNotes) {
     const removeBtn = document.querySelector(`#remove-note${noteId}`);
 
     shareBtn.addEventListener('click', (evt) => {
-        evt.preventDefault();
-        const userId = document.querySelector(`#shared-user${noteId}`).value;
+      /* Connects share buttons to share-notes route. */
 
-        const formInputs = {
-          id: noteId,
-          user: userId
-        };
-        console.log(formInputs)
-      
-        fetch('/share-note', {
-          method: 'POST',
-          body: JSON.stringify(formInputs),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            alert(responseJson.status);
-          });
-      });
+      evt.preventDefault();
+      const userId = document.querySelector(`#shared-user${noteId}`).value;
+
+      const formInputs = {
+        id: noteId,
+        user: userId
+      };
+      console.log(formInputs)
+    
+      fetch('/share-note', {
+        method: 'POST',
+        body: JSON.stringify(formInputs),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          alert(responseJson.status);
+        });
+    });
 
       delBtn.addEventListener('click', (evt) => {
+        /* Connects delete buttons to delete-notes route */
+
         evt.preventDefault();
     
         const formInputs = {id: noteId};
@@ -84,14 +90,17 @@ for (const noteForm of allNotes) {
       });
 }
 
+//Selector for shared notes displayed on page
 const sharedNotes = document.querySelectorAll("#shared-notes form")
 
 for (const sharedForm of sharedNotes) {
 
-  const noteId = sharedFrom.id;
+  const noteId = sharedForm.id;
   const removeBtn = document.querySelector(`#remove-note${noteId}`);
 
   removeBtn.addEventListener('click', (evt) => {
+    /* Connects remove button to remove-note route */
+
     evt.preventDefault();
   
     const formInputs = {id: noteId};

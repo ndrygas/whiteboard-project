@@ -16,13 +16,15 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """View homepage."""
 
-    try:
-        if session["username"]:
-            username = session["username"]
-            user = crud.get_user_by_name(username)
-            return redirect(f"/{user.username}")
-    except:
+    print(session)
+    if "username" not in session:
         return render_template('homepage.html')
+    
+    else:
+        username = session["username"]
+        user = crud.get_user_by_name(username)
+        return redirect(f"/{user.username}")
+    
     
 
 @app.route("/create-account", methods=["POST"])
@@ -61,13 +63,22 @@ def log_in():
     password = request.form.get('password')
    
     user = crud.get_user_by_name(username)
-    if not user or user.password != password:
-        flash("Please enter valid credentials or create a new account.")
-        return redirect("/")
-    else:
+
+    # if not user or user.password != password:
+    #     flash("Please enter valid credentials or create a new account.")
+    #     return redirect("/")
+    # else:
+    #     session["username"] = user.username
+    #     flash(f"Successfully logged into {user.username}'s account.")
+    #     return redirect(f"/{user.username}")
+    
+    if user and user.password == password:
         session["username"] = user.username
         flash(f"Successfully logged into {user.username}'s account.")
         return redirect(f"/{user.username}")
+    else:
+        flash("Please enter valid credentials or create a new account.")
+        return redirect("/")
     
 
 @app.route('/logout', methods=["POST"])
@@ -83,7 +94,11 @@ def log_out():
 def user_home(username):
     """Display a user's homepage and all of their active notes."""
     
-    if session['username']:
+    if "username" not in session:
+        flash(f"You must be logged in to view your whiteboard.")
+        return redirect("/")
+    
+    else:
         username = session["username"]
         user = crud.get_user_by_name(username)
         notes = crud.get_notes_by_user_id(user.user_id)
@@ -96,9 +111,8 @@ def user_home(username):
         
         return render_template('note.html', user=user, notes=notes, shared=shared_list)
     
-    else:
-        flash(f"You must be logged in to view your whiteboard.")
-        return redirect("/")
+    
+        
 
 
 
@@ -157,12 +171,16 @@ def share_note():
 
     if not user:
         return {"status": f"Error: No matching username, please try again."}
+    
     elif user and user != None:
+        #searches for a potential duplicate note in the database
         dupe_note = crud.get_shared_note_by_note_id_and_user_id(note_id, user.user_id)
-        print(dupe_note)
+        
         if dupe_note:
+            #checks if the note has already been shared to this user, preventing duplicates
             return {"status": f"Note already shared"}
         else:
+            #creates a new note share in the database
             new_share = crud.create_share(note_id=note.note_id, user_id=user.user_id)
             db.session.add(new_share)
             db.session.commit()
@@ -171,12 +189,14 @@ def share_note():
 
 @app.route("/remove-note", methods=["POST"])
 def remove_note():
-    """Remove a shared note from a user's whiteboard."""
+    """Remove a shared note from a user's whiteboard. 
+       This does not delete the original note."""
 
     note_id = request.json.get("id")
     username = session["username"]
     user = crud.get_user_by_name(username)
     user_id = user.user_id
+
     note_user = crud.get_shared_note_by_note_id_and_user_id(note_id, user_id)
 
     db.session.delete(note_user)
