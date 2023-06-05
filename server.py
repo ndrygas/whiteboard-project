@@ -104,7 +104,7 @@ def user_home(username):
         return render_template('note.html', user=user, notes=notes, shared=shared_list)
     
     
-        
+
 
 
 
