@@ -30,8 +30,7 @@ def get_all_users():
 def create_note(user_id, title="", body="", favorite=True):
     """Create and return a new note."""
 
-    note = Note(user_id=user_id, title=title, body=body, 
-                favorite=favorite)
+    note = Note(user_id=user_id, title=title, body=body)
 
     return note
 

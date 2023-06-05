@@ -28,7 +28,7 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     title = db.Column(db.String(50))
     body = db.Column(db.Text)
-    favorite = db.Column(db.Boolean, nullable=False)
+    # favorite = db.Column(db.Boolean, nullable=False)
 
     user = db.relationship("User", secondary="notes_users", back_populates="notes")
 
@@ -49,6 +49,29 @@ class NoteUser(db.Model):
         return f'''<NoteUser note_user_id={self.note_user_id} 
                 note_id={self.note_id} user_id={self.user_id}>'''
 
+
+def test_data():
+    """Create some sample data."""
+
+    # Empty existing data
+    Note.query.delete()
+    User.query.delete()
+    NoteUser.query.delete()
+
+    # Sample users, notes, and note shares
+    nico = User(username="nico", password="pico")
+    wico = User(username="wico", password="lico")
+    
+    nico_note = Note(user_id="nico", title="Title-1", body="Body-1")
+    wico_note = Note(user_id="nico", title="Title-2", body="Body-2")
+    
+    nico_share_to_wico = NoteUser(user_id="wico", note_id=1)
+    wico_share_to_nico = NoteUser(user_id="nico", note_id=2)
+
+    db.session.add_all([nico, wico])
+    db.session.add_all([nico_note, wico_note])
+    db.session.add_all([nico_share_to_wico, wico_share_to_nico])
+    db.session.commit()
 
 
 def connect_to_db(app):

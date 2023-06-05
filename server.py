@@ -63,14 +63,6 @@ def log_in():
     password = request.form.get('password')
    
     user = crud.get_user_by_name(username)
-
-    # if not user or user.password != password:
-    #     flash("Please enter valid credentials or create a new account.")
-    #     return redirect("/")
-    # else:
-    #     session["username"] = user.username
-    #     flash(f"Successfully logged into {user.username}'s account.")
-    #     return redirect(f"/{user.username}")
     
     if user and user.password == password:
         session["username"] = user.username
