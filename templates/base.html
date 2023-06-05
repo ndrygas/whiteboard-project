@@ -10,6 +10,7 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <!-- Displays helping messages when creating accounts or logging in -->
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
         {{ msg }}

@@ -2,6 +2,7 @@
 {% block title %}Whiteboard{% endblock %}
 
 {% block body %}
+<!-- Navigation bar with main user functionality -->
   <nav class="navbar bg-dark navbar-expand-sm sticky-top bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand">The Whiteboard</a>
@@ -11,7 +12,7 @@
     </nav>    
 
   <h3>Log In</h3>
-
+    <!-- Form to Log In to a user account -->
   <form method="POST" action="/login">
     <div class="login-group">
         <label for="username">Username</label>
@@ -27,7 +28,7 @@
 </form>
 
   <h3>Create Account</h3>
-
+    <!-- Form to create a new user account -->
   <form method="POST" action="/create-account">
     <div class="create-account-group">
         <label for="username">Username</label>

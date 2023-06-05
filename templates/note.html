@@ -2,6 +2,7 @@
 {% block title %}{{ user.username }}'s Whiteboard{% endblock %}
 
 {% block body %}
+  <!-- Navigation bar with main user functionality -->
 <nav class="navbar bg-dark navbar-expand-sm sticky-top bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">{{ user.username }}'s Whiteboard</a>
@@ -29,7 +30,9 @@
     </div>
   </div>
 </nav>
+
 <p>Original Notes</p>
+  <!-- Displays all notes associated to the logged in user -->
 <div id="note-forms">
   {% for note in notes %}
     <form id="{{note.note_id}}" method="post">
@@ -52,8 +55,8 @@
   {% endfor %}
 </div>  
 
-  <p>Shared Notes:</p>
-
+<p>Shared Notes:</p>
+  <!-- Displays notes shared between users, omitting duplicates -->
 <div id="shared-notes">
     {% for note in shared %}
       {% if note not in notes %}
@@ -75,12 +78,7 @@
         </form>
     {% endfor %}
 </div>
-  <!-- </div>
-  </p> -->
-<!-- </form> -->
 
 <script src="/static/whiteboard.js"></script>
-  
-  
   
 {% endblock %}

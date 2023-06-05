@@ -30,7 +30,9 @@ saveNotes.addEventListener("click", (evt) => {
           .then((responseJson) => {
             console.log(responseJson.status);
           });
-      }});
+      }
+          alert("Notes Saved")    
+    });
     
 
 
