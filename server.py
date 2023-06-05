@@ -81,7 +81,7 @@ def log_out():
 
     return redirect("/")
     
-    
+
 @app.route('/<username>')
 def user_home(username):
     """Display a user's homepage and all of their active notes."""
@@ -102,10 +102,6 @@ def user_home(username):
         print(shared)
         
         return render_template('note.html', user=user, notes=notes, shared=shared_list)
-    
-    
-
-
 
 
 @app.route("/new-note", methods=["POST"])
