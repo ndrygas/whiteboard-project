@@ -2,7 +2,7 @@
 
 // Selectors for save button and all notes displayed on page.
 const saveNotes = document.querySelector("#save-notes");
-const allNotes = document.querySelectorAll("#note-forms form");
+const allNotes = document.querySelectorAll("#note-forms .form-group");
 
 saveNotes.addEventListener("click", (evt) => {
     /* Update note information in database when "Save" button is clicked. */
@@ -37,12 +37,16 @@ saveNotes.addEventListener("click", (evt) => {
 
 
 for (const noteForm of allNotes) {
-    /* Adds share, delete, and remove functionality buttons to relevant notes.  */
+    /* Adds share and delete functionality buttons to relevant notes.  */
+
+    console.log(noteForm)
     const noteId = noteForm.id;
     console.log(noteId);
     const shareBtn = document.querySelector(`#share-note${noteId}`);
     const delBtn = document.querySelector(`#delete-note${noteId}`);
-    const removeBtn = document.querySelector(`#remove-note${noteId}`);
+
+    console.log(shareBtn)
+    console.log(delBtn)
 
     shareBtn.addEventListener('click', (evt) => {
       /* Connects share buttons to share-notes route. */
