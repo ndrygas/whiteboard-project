@@ -9,27 +9,42 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    </nav>    
-    <div class="d-flex justify-content-center align-middle">
-  <h3>Log In</h3>
-    <!-- Form to Log In to a user account -->
-  <form method="POST" action="/login">
-    <div class="login-group">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="l-username">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <button id="open-ca-modal" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#create-account-modal">Sign Up</button>
+        
+            </form>
+          </li>
+          <button id="open-login-modal" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#login-modal">Sign In</button>
+          </form>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="login-group">
-        <label for="password">Password </label>
-        <input type="password" name="password" id="l-password">
-    </div>
-    <div class="login-group">
-        <input type="submit">
-    </div>
-</form>
+  </nav>    
 
-
+  <!-- <div class="d-flex justify-content-center align-middle">
+    <h3>Log In</h3>
+      Form to Log In to a user account
+    <form method="POST" action="/login">
+      <div class="login-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="l-username">
+      </div>
+      <div class="login-group">
+          <label for="password">Password </label>
+          <input type="password" name="password" id="l-password">
+      </div>
+      <div class="login-group">
+          <input type="submit">
+      </div>
+    </form>
+  </div>
+  
   <h3>Create Account</h3>
-    <!-- Form to create a new user account -->
+    Form to create a new user account
   <form method="POST" action="/create-account">
     <div class="create-account-group">
         <label for="username">Username</label>
@@ -42,7 +57,69 @@
     <div class="create-account-group">
         <input type="submit">
     </div>
-  </form>
-  </div>
+  </form> -->
+
+   
+
+    <div class="modal fade" id="create-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id=login-modal-title>New Account: </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/create-account">
+              <div class="create-account-group">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" id="c-username">
+              </div>
+              <div class="create-account-group">
+                  <label for="password">Password </label>
+                  <input type="password" name="password" id="c-password">
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="create-account-button" type="submit" class="btn btn-primary">Create Account</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id=login-modal-title>Login: </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/login">
+              <div class="login-group">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" id="l-username">
+              </div>
+              <div class="login-group">
+                  <label for="password">Password </label>
+                  <input type="password" name="password" id="l-password">
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="login-button" type="submit" class="btn btn-primary">Log In</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  
   
 {% endblock %}
