@@ -38,11 +38,11 @@
     <form class="form-group" id="{{note.note_id}}" method="post">
 
       <div class="note-group">
-          <input type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
+          <input class="form-control" type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
       </div>
 
       <div class="note-group">
-        <textarea type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
+        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
       </div>
 
       <div class="note-group">
@@ -52,13 +52,13 @@
       </div>
     </form>
       
-      <div class="modal fade" id="share-modal{{note.note_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal fade" id="share-modal{{note.note_id}}" tabindex="-1" role="dialog" aria-labelledby="modal-title{{note.note_id}}" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id={{note.note_id}}>Share note to: </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <h5 class="modal-title" id="modal-title{{note.note_id}}">Share note to: </h5>
+              <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">
+                <!-- <span aria-hidden="true">&times;</span> -->
               </button>
             </div>
             <div class="modal-body">
@@ -91,11 +91,11 @@
         <form id="{{note.note_id}}" method="post">
     
           <div class="note-group">
-              <input type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
+              <input type="text" class="form-control" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
           </div>
     
           <div class="note-group">
-            <textarea type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
+            <textarea type="text" class="form-control" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
           </div>
     
           <div class="note-group">

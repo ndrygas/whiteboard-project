@@ -69,6 +69,7 @@ for (const noteForm of allNotes) {
       })
         .then((response) => response.json())
         .then((responseJson) => {
+          location.reload();
           alert(responseJson.status);
         });
     });
