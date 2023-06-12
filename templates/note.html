@@ -31,26 +31,31 @@
   </div>
 </nav>
 
+<div class="container-fluid">
+{% if notes %}
 <p>Original Notes</p>
+{% endif %}
   <!-- Displays all notes associated to the logged in user -->
 <div id="note-forms">
   {% for note in notes %}
+  <div>
     <form class="form-group" id="{{note.note_id}}" method="post">
 
       <div class="note-group">
-          <input class="form-control" type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
+          <input class="form-control" type="text" name="title" id="n-title{{note.note_id}}" value="{{note.title}}" placeholder="Title">
       </div>
 
       <div class="note-group">
-        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
+        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}" rows="5">{{note.body}}</textarea>
       </div>
 
-      <div class="note-group">
+      <div class="btn-group">
         <!-- <input type="text" name="shared-user" id="shared-user{{note.note_id}}"> -->
         <button id="share-button{{note.note_id}}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#share-modal{{note.note_id}}">Share</button>
         <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
       </div>
     </form>
+    <br></br>
       
       <div class="modal fade" id="share-modal{{note.note_id}}" tabindex="-1" role="dialog" aria-labelledby="modal-title{{note.note_id}}" aria-hidden="true">
         <div class="modal-dialog">
@@ -82,8 +87,9 @@
 </div>  
 
 
-
+{% if shared %}
 <p>Shared Notes:</p>
+{% endif %}
   <!-- Displays notes shared between users, omitting duplicates -->
 <div id="shared-notes">
     {% for note in shared %}
@@ -105,6 +111,7 @@
     {% endif %}
         </form>
     {% endfor %}
+</div>
 </div>
 
 <script src="/static/whiteboard.js"></script>
