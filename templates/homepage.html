@@ -2,6 +2,7 @@
 {% block title %}Whiteboard{% endblock %}
 
 {% block body %}
+
 <!-- Navigation bar with main user functionality -->
   <nav class="navbar bg-dark navbar-expand-sm sticky-top bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
@@ -61,13 +62,13 @@
 
    
 
-    <div class="modal fade" id="create-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="create-account-modal" tabindex="-1" role="dialog" aria-labelledby="create-account-modal-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id=login-modal-title>New Account: </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <h5 class="modal-title" id="create-account-modal-title">New Account: </h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+              <!-- <span aria-hidden="true">&times;</span> -->
             </button>
           </div>
           <div class="modal-body">
@@ -120,6 +121,6 @@
         </div>
       </div>
     </div>
-  
+
   
 {% endblock %}

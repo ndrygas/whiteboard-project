@@ -2,38 +2,43 @@
 {% block title %}{{ user.username }}'s Whiteboard{% endblock %}
 
 {% block body %}
+
   <!-- Navigation bar with main user functionality -->
-<nav class="navbar bg-dark navbar-expand-sm sticky-top bg-body-tertiary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">{{ user.username }}'s Whiteboard</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-sm sticky-top bg-dark" data-bs-theme="dark">
+   <a class="p-3 mb-1 navbar-brand" href="#">   {{ user.username }}'s Whiteboard</a>
+  <div class="container-fluid justify-content-start">
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <form method="POST" action="/new-note">
-            <button class="btn btn-outline-success" id="new-note" type="submit">New</button>
-          </form>
-        </li>
-        <li class="nav-item">
-          <form method="POST" action="/save-notes">
-            <button class="btn btn-outline-primary" id="save-notes" type="submit">Save</button>
-          </form>
-        </li>
-        <li class="nav-item">
-          <form method="POST" action="/logout">
-          <button class="btn btn-outline-danger" id="log-out" type="submit">Logout</button>
-        </form>
-        </li>
-      </ul>
+    <div class="collapse navbar-collapse " id="navbarNav"> -->
+      <!-- <ul class="navbar-nav">
+        <li class="nav-item"> -->
+    <div class="btn-group">
+      <form method="POST" action="/new-note">
+        <button class="btn btn-success" id="new-note" type="submit">New</button>
+      </form>
+    <!-- </li>
+    <li class="nav-item"> -->
+      <form method="POST" action="/save-notes">
+        <button class="btn btn-primary" id="save-notes" type="submit">Save</button>
+      </form>
+    </div>
+    <!-- </li>
+    </ul> -->
+    </div>
+  <div class="container-fluid justify-content-end">
+    <form method="POST" action="/logout">
+      <button class="btn btn-danger" id="log-out" type="submit">Logout</button>
+    </form>
+        
+      
     </div>
   </div>
 </nav>
-
+<div class="p-3 mb-2 bg-dark text-white">
 <div class="container-fluid">
 {% if notes %}
-<p>Original Notes</p>
+<h5>Notes: <h5>
 {% endif %}
   <!-- Displays all notes associated to the logged in user -->
 <div id="note-forms">
@@ -46,7 +51,7 @@
       </div>
 
       <div class="note-group">
-        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}" rows="5">{{note.body}}</textarea>
+        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}" rows="4">{{note.body}}</textarea>
       </div>
 
       <div class="btn-group">
@@ -61,7 +66,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="modal-title{{note.note_id}}">Share note to: </h5>
+              <h5 class="modal-title text-dark" id="modal-title{{note.note_id}}">Choose Recipient: </h5>
               <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">
                 <!-- <span aria-hidden="true">&times;</span> -->
               </button>
@@ -88,7 +93,7 @@
 
 
 {% if shared %}
-<p>Shared Notes:</p>
+<h5>Shared: </h5>
 {% endif %}
   <!-- Displays notes shared between users, omitting duplicates -->
 <div id="shared-notes">
@@ -101,19 +106,21 @@
           </div>
     
           <div class="note-group">
-            <textarea type="text" class="form-control" name="body" id="n-body{{note.note_id}}">{{note.body}}</textarea>
+            <textarea type="text" class="form-control" name="body" id="n-body{{note.note_id}}" rows="4">{{note.body}}</textarea>
           </div>
     
           <div class="note-group">
             
             <button id="remove-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Remove</button>
           </div>
+
+          <br></br>
     {% endif %}
         </form>
     {% endfor %}
 </div>
 </div>
-
+</div>
 <script src="/static/whiteboard.js"></script>
   
 {% endblock %}
