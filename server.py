@@ -66,7 +66,7 @@ def log_in():
     
     if user and user.password == password:
         session["username"] = user.username
-        flash(f"Successfully logged into {user.username}'s account.")
+        # flash(f"Successfully logged into {user.username}'s account.")
         return redirect(f"/{user.username}")
     else:
         flash("Please enter valid credentials or create a new account.")

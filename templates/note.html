@@ -35,7 +35,7 @@
     </div>
   </div>
 </nav>
-<div class="p-3 mb-2 bg-dark text-white">
+<div class="p-3 mb-2 text-white">
 <div class="container-fluid">
 {% if notes %}
 <h5>Notes: <h5>
@@ -51,7 +51,7 @@
       </div>
 
       <div class="note-group">
-        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}" rows="4">{{note.body}}</textarea>
+        <textarea class="form-control"type="text" name="body" id="n-body{{note.note_id}}" placeholder="~add text~" rows="4">{{note.body}}</textarea>
       </div>
 
       <div class="btn-group">
@@ -102,11 +102,11 @@
         <form id="{{note.note_id}}" method="post">
     
           <div class="note-group">
-              <input type="text" class="form-control" name="title" id="n-title{{note.note_id}}" value="{{note.title}}">
+              <input type="text" class="form-control" name="title" id="n-title{{note.note_id}}" placeholder="Title" value="{{note.title}}">
           </div>
     
           <div class="note-group">
-            <textarea type="text" class="form-control" name="body" id="n-body{{note.note_id}}" rows="4">{{note.body}}</textarea>
+            <textarea type="text" class="form-control" name="body" id="n-body{{note.note_id}}" rows="4" placeholder="~add text~">{{note.body}}</textarea>
           </div>
     
           <div class="note-group">
