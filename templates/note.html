@@ -7,31 +7,19 @@
 <nav class="navbar navbar-expand-sm sticky-top bg-dark" data-bs-theme="dark">
    <a class="p-3 mb-1 navbar-brand" href="#">   {{ user.username }}'s Whiteboard</a>
   <div class="container-fluid justify-content-start">
-    <!--
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    </button>
-    <div class="collapse navbar-collapse " id="navbarNav"> -->
-      <!-- <ul class="navbar-nav">
-        <li class="nav-item"> -->
     <div class="btn-group">
       <form method="POST" action="/new-note">
         <button class="btn btn-success" id="new-note" type="submit">New</button>
       </form>
-    <!-- </li>
-    <li class="nav-item"> -->
       <form method="POST" action="/save-notes">
         <button class="btn btn-primary" id="save-notes" type="submit">Save</button>
       </form>
     </div>
-    <!-- </li>
-    </ul> -->
     </div>
   <div class="container-fluid justify-content-end">
     <form method="POST" action="/logout">
       <button class="btn btn-danger" id="log-out" type="submit">Logout</button>
     </form>
-        
-      
     </div>
   </div>
 </nav>
@@ -55,20 +43,18 @@
       </div>
 
       <div class="btn-group">
-        <!-- <input type="text" name="shared-user" id="shared-user{{note.note_id}}"> -->
         <button id="share-button{{note.note_id}}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#share-modal{{note.note_id}}">Share</button>
         <button id="delete-note{{note.note_id}}" type="button" class="btn btn-secondary btn-sm">Delete</button>
       </div>
     </form>
     <br></br>
-      
+      <!-- Modal for selecting share recipeient -->
       <div class="modal fade" id="share-modal{{note.note_id}}" tabindex="-1" role="dialog" aria-labelledby="modal-title{{note.note_id}}" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="modal-title{{note.note_id}}">Choose Recipient: </h5>
               <button type="button" class="btn-close" aria-label="Close" data-dismiss="modal">
-                <!-- <span aria-hidden="true">&times;</span> -->
               </button>
             </div>
             <div class="modal-body">
@@ -86,8 +72,6 @@
           </div>
         </div>
       </div>
-
-    
   {% endfor %}
 </div>  
 

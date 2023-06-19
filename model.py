@@ -50,7 +50,7 @@ class NoteUser(db.Model):
 
 
 def test_data():
-    """Create some test data."""
+    """Test data to verify accounts are working."""
 
     # Empty existing data
     NoteUser.query.delete()

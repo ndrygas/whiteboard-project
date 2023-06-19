@@ -55,7 +55,7 @@ class FlaskTestsDatabase(TestCase):
         self.assertIn(b"You must be logged in to view your whiteboard", result.data)
         
 
+
 if __name__ == "__main__":
     import unittest
-    
     unittest.main()
